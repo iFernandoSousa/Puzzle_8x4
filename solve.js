@@ -1,4 +1,4 @@
-let Peace = function (topLeft, topRight, bottomLeft, bottomRight) {
+let Piece = function (topLeft, topRight, bottomLeft, bottomRight) {
     this.tl = topLeft;
     this.tr = topRight;
     this.bl = bottomLeft;
@@ -14,36 +14,36 @@ let Peace = function (topLeft, topRight, bottomLeft, bottomRight) {
         return this;
     }
 
-    this.matchRight = function (peace) {
-        return this.tr == peace.tl && this.br == peace.bl;
+    this.matchRight = function (piece) {
+        return this.tr == piece.tl && this.br == piece.bl;
     }
 
-    this.matchBottom = function (peace) {
-        return this.bl == peace.tl && this.br == peace.tr;
+    this.matchBottom = function (piece) {
+        return this.bl == piece.tl && this.br == piece.tr;
     }
 }
 
-let PeacesManager = function () {
-    this.peaces = [];
+let PieceManager = function () {
+    this.pieces = [];
     this.board = {};
 
     this.load = function () {
-        this.putToEnd(new Peace('Y', 'R', 'B', 'G')); //1
-        this.putToEnd(new Peace('Y', 'G', 'R', 'B')); //2
-        this.putToEnd(new Peace('Y', 'B', 'G', 'R')); //3
-        this.putToEnd(new Peace('Y', 'R', 'G', 'B')); //4
-        this.putToEnd(new Peace('Y', 'R', 'G', 'B')); //5
-        this.putToEnd(new Peace('Y', 'B', 'G', 'R')); //6
-        this.putToEnd(new Peace('Y', 'G', 'B', 'R')); //7 
-        this.putToEnd(new Peace('Y', 'B', 'R', 'G')); //8
+        this.putToEnd(new Piece('Y', 'R', 'B', 'G')); //1
+        this.putToEnd(new Piece('Y', 'G', 'R', 'B')); //2
+        this.putToEnd(new Piece('Y', 'B', 'G', 'R')); //3
+        this.putToEnd(new Piece('Y', 'R', 'G', 'B')); //4
+        this.putToEnd(new Piece('Y', 'R', 'G', 'B')); //5
+        this.putToEnd(new Piece('Y', 'B', 'G', 'R')); //6
+        this.putToEnd(new Piece('Y', 'G', 'B', 'R')); //7 
+        this.putToEnd(new Piece('Y', 'B', 'R', 'G')); //8
     }
 
-    this.putToEnd = function (peace) {
-        this.peaces.push(peace);
+    this.putToEnd = function (piece) {
+        this.pieces.push(piece);
     }
 
     this.getFirst = function () {
-        return this.peaces.shift();
+        return this.pieces.shift();
     }
 
     this.printBoard = function () {
@@ -136,14 +136,14 @@ let PeacesManager = function () {
                 console.log('---------------------------------------');
             }
 
-            //Peace 1
+            //Piece 1
             if (!this.board[1]) {
                 this.board[1] = this.getFirst();
             }
 
-            //Peace 2
+            //Piece 2
             if (!this.board[2]) {
-                let currentSize = this.peaces.length;
+                let currentSize = this.pieces.length;
                 for (let i = 0; i < currentSize; i++) {
                     let p = this.getFirst();
                     let match = false;
@@ -163,16 +163,16 @@ let PeacesManager = function () {
                     }
                 }
 
-                //Check is empty yet, if yes, remove last peace
+                //Check is empty yet, if yes, remove last Piece
                 if (!this.board[2]) {
                     this.clearBoard();
                     continue;
                 }
             }
 
-            //Peace 3
+            //Piece 3
             if (!this.board[3]) {
-                currentSize = this.peaces.length;
+                currentSize = this.pieces.length;
                 for (let i = 0; i < currentSize; i++) {
                     let p = this.getFirst();
                     let match = false;
@@ -192,16 +192,16 @@ let PeacesManager = function () {
                     }
                 }
 
-                //Check is empty yet, if yes, remove last peace
+                //Check is empty yet, if yes, remove last Piece
                 if (!this.board[3]) {
                     this.clearBoard();
                     continue;
                 }
             }
 
-            //Peace 4
+            //Piece 4
             if (!this.board[4]) {
-                currentSize = this.peaces.length;
+                currentSize = this.pieces.length;
                 for (let i = 0; i < currentSize; i++) {
                     let p = this.getFirst();
                     let match = false;
@@ -221,7 +221,7 @@ let PeacesManager = function () {
                     }
                 }
 
-                //Check is empty yet, if yes, remove last peace
+                //Check is empty yet, if yes, remove last Piece
                 if (!this.board[4]) {
                     this.clearBoard();
 
@@ -229,9 +229,9 @@ let PeacesManager = function () {
                 }
             }
 
-            //Peace 5
+            //Piece 5
             if (!this.board[5]) {
-                currentSize = this.peaces.length;
+                currentSize = this.pieces.length;
                 for (let i = 0; i < currentSize; i++) {
                     let p = this.getFirst();
                     let match = false;
@@ -251,7 +251,7 @@ let PeacesManager = function () {
                     }
                 }
 
-                //Check is empty yet, if yes, remove last peace
+                //Check is empty yet, if yes, remove last Piece
                 if (!this.board[5]) {
                     this.clearBoard();
                     
@@ -259,9 +259,9 @@ let PeacesManager = function () {
                 }
             }
 
-            //Peace 6
+            //Piece 6
             if (!this.board[6]) {
-                currentSize = this.peaces.length;
+                currentSize = this.pieces.length;
                 for (let i = 0; i < currentSize; i++) {
                     let p = this.getFirst();
                     let match = false;
@@ -281,7 +281,7 @@ let PeacesManager = function () {
                     }
                 }
 
-                //Check is empty yet, if yes, remove last peace
+                //Check is empty yet, if yes, remove last Piece
                 if (!this.board[6]) {
                     this.clearBoard();
 
@@ -289,9 +289,9 @@ let PeacesManager = function () {
                 }
             }
 
-            //Peace 7
+            //Piece 7
             if (!this.board[7]) {
-                currentSize = this.peaces.length;
+                currentSize = this.pieces.length;
                 for (let i = 0; i < currentSize; i++) {
                     let p = this.getFirst();
                     let match = false;
@@ -311,7 +311,7 @@ let PeacesManager = function () {
                     }
                 }
 
-                //Check is empty yet, if yes, remove last peace
+                //Check is empty yet, if yes, remove last Piece
                 if (!this.board[7]) {
                     this.clearBoard();
 
@@ -319,9 +319,9 @@ let PeacesManager = function () {
                 }
             }
 
-             //Peace 8
+             //Piece 8
              if (!this.board[8]) {
-                currentSize = this.peaces.length;
+                currentSize = this.pieces.length;
                 for (let i = 0; i < currentSize; i++) {
                     let p = this.getFirst();
                     let match = false;
@@ -341,7 +341,7 @@ let PeacesManager = function () {
                     }
                 }
 
-                //Check is empty yet, if yes, remove last peace
+                //Check is empty yet, if yes, remove last Piece
                 if (!this.board[8]) {
                     this.clearBoard();
 
@@ -354,6 +354,6 @@ let PeacesManager = function () {
     }
 }
 
-let peaceManager = new PeacesManager();
-peaceManager.solve(false);
-peaceManager.printBoard();
+let pieceManager = new PieceManager();
+pieceManager.solve(true);
+pieceManager.printBoard();
