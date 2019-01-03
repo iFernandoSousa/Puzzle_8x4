@@ -1,4 +1,5 @@
-#Puzzle game 8x4 Colors
+Puzzle game 8x4 Colors
+------------------
 
 This puzzle have 8 pieces each one with four colors (Yellow, Blue, Green and Red).
 
