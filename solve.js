@@ -15,38 +15,39 @@ let Piece = function (topLeft, topRight, bottomLeft, bottomRight) {
     }
 
     this.matchRight = function (piece) {
-        return this.tr == piece.tl && this.br == piece.bl;
+        return this.tr == piece.tl && this.br == piece.bl
     }
 
     this.matchBottom = function (piece) {
-        return this.bl == piece.tl && this.br == piece.tr;
+        return this.bl == piece.tl && this.br == piece.tr
+    }
+
+    this.clone = function() {
+        return new Piece(this.tl, this.tr, this.bl, this.br)
     }
 }
 
 let PieceManager = function () {
-    this.pieces = [];
-    this.board = {};
+    this.getPieces = function () {
+        let pieces = [];
+        pieces.push(new Piece('G', 'Y', 'R', 'B')); //1
+        pieces.push(new Piece('R', 'B', 'G', 'Y')); //3
+        pieces.push(new Piece('Y', 'R', 'B', 'G')); //2
+        pieces.push(new Piece('R', 'B', 'Y', 'G')); //4
+        pieces.push(new Piece('G', 'Y', 'R', 'B')); //5
+        pieces.push(new Piece('Y', 'G', 'R', 'B')); //6
+        pieces.push(new Piece('G', 'R', 'B', 'Y')); //7
+        pieces.push(new Piece('R', 'B', 'Y', 'G')); //8
 
-    this.load = function () {
-        this.putToEnd(new Piece('Y', 'R', 'B', 'G')); //1
-        this.putToEnd(new Piece('Y', 'G', 'R', 'B')); //2
-        this.putToEnd(new Piece('Y', 'B', 'G', 'R')); //3
-        this.putToEnd(new Piece('Y', 'R', 'G', 'B')); //4
-        this.putToEnd(new Piece('Y', 'R', 'G', 'B')); //5
-        this.putToEnd(new Piece('Y', 'B', 'G', 'R')); //6
-        this.putToEnd(new Piece('Y', 'G', 'B', 'R')); //7 
-        this.putToEnd(new Piece('Y', 'B', 'R', 'G')); //8
+        return pieces;
     }
 
-    this.putToEnd = function (piece) {
-        this.pieces.push(piece);
+    this.getPiece = function (pieces, index) {
+        if (index < pieces.length)
+            return pieces.splice(index, 1)[0];
     }
 
-    this.getFirst = function () {
-        return this.pieces.shift();
-    }
-
-    this.printBoard = function () {
+    this.printBoard = function (board) {
         let line1 = '',
             line2 = '',
             line3 = '',
@@ -55,44 +56,44 @@ let PieceManager = function () {
             line6 = '';
 
         //Top
-        if (this.board[1]) {
-            line1 += '[' + this.board[1].tl + ' ' + this.board[1].tr + ']';
-            line2 += '[' + this.board[1].bl + ' ' + this.board[1].br + ']';
+        if (board[0]) {
+            line1 += '[' + board[0].tl + ' ' + board[0].tr + ']';
+            line2 += '[' + board[0].bl + ' ' + board[0].br + ']';
         }
-        if (this.board[2]) {
-            line1 += '[' + this.board[2].tl + ' ' + this.board[2].tr + ']';
-            line2 += '[' + this.board[2].bl + ' ' + this.board[2].br + ']';
+        if (board[1]) {
+            line1 += '[' + board[1].tl + ' ' + board[1].tr + ']';
+            line2 += '[' + board[1].bl + ' ' + board[1].br + ']';
         }
-        if (this.board[3]) {
-            line1 += '[' + this.board[3].tl + ' ' + this.board[3].tr + ']';
-            line2 += '[' + this.board[3].bl + ' ' + this.board[3].br + ']';
+        if (board[2]) {
+            line1 += '[' + board[2].tl + ' ' + board[2].tr + ']';
+            line2 += '[' + board[2].bl + ' ' + board[2].br + ']';
         }
 
         //Middle
-        if (this.board[4]) {
-            line3 += '[' + this.board[4].tl + ' ' + this.board[4].tr + ']';
-            line4 += '[' + this.board[4].bl + ' ' + this.board[4].br + ']';
+        if (board[3]) {
+            line3 += '[' + board[3].tl + ' ' + board[3].tr + ']';
+            line4 += '[' + board[3].bl + ' ' + board[3].br + ']';
         }
-        if (this.board[5]) {
+        if (board[4]) {
             line3 += '     ';
             line4 += '     ';
 
-            line3 += '[' + this.board[5].tl + ' ' + this.board[5].tr + ']';
-            line4 += '[' + this.board[5].bl + ' ' + this.board[5].br + ']';
+            line3 += '[' + board[4].tl + ' ' + board[4].tr + ']';
+            line4 += '[' + board[4].bl + ' ' + board[4].br + ']';
         }
 
         //Bottom
-        if (this.board[6]) {
-            line5 += '[' + this.board[6].tl + ' ' + this.board[6].tr + ']';
-            line6 += '[' + this.board[6].bl + ' ' + this.board[6].br + ']';
+        if (board[5]) {
+            line5 += '[' + board[5].tl + ' ' + board[5].tr + ']';
+            line6 += '[' + board[5].bl + ' ' + board[5].br + ']';
         }
-        if (this.board[7]) {
-            line5 += '[' + this.board[7].tl + ' ' + this.board[7].tr + ']';
-            line6 += '[' + this.board[7].bl + ' ' + this.board[7].br + ']';
+        if (board[6]) {
+            line5 += '[' + board[6].tl + ' ' + board[6].tr + ']';
+            line6 += '[' + board[6].bl + ' ' + board[6].br + ']';
         }
-        if (this.board[8]) {
-            line5 += '[' + this.board[8].tl + ' ' + this.board[8].tr + ']';
-            line6 += '[' + this.board[8].bl + ' ' + this.board[8].br + ']';
+        if (board[7]) {
+            line5 += '[' + board[7].tl + ' ' + board[7].tr + ']';
+            line6 += '[' + board[7].bl + ' ' + board[7].br + ']';
         }
 
         console.log(line1);
@@ -103,257 +104,107 @@ let PieceManager = function () {
         console.log(line6);
     }
 
-    this.boardIsValid = function () {        
-        for (let i = 1; i <= 8; i++) {
-            if (!this.board[i])
-                return false;
+    this.clonePieces = function(pieces) {
+        let nPieces =  []
+        for (let p = 0; p < pieces.length; p++) {
+            if (pieces[p])
+                nPieces.push(pieces[p].clone())
         }
-
-        return true;
+        return nPieces
     }
 
-    this.clearBoard = function () {
-        if (this.isDebug) {
-            this.printBoard();
+    this.cloneBoard = function(board) {
+        let nBboard = [];
+        for(let b=0; b < board.length; b++) {
+            if (board[b])
+                nBboard.push(board[b].clone())
         }
-
-        for (let i = 8; i >= 1; i--) {
-            if (this.board[i])
-                this.putToEnd(this.board[i].turn());
-        }
-        this.board = {};
+        return nBboard
     }
 
-    this.solve = function (isDebug) {
-        this.isDebug = isDebug;
-        this.load();
-        let combination = 0;
+    this.match = function (board_, pieces_) {
+        this.combinations++;
 
-        while (!this.boardIsValid()) {
-            if (this.isDebug) {
-                console.log('---------------------------------------');
-                console.log('Combination : ' + (++combination));
-                console.log('---------------------------------------');
+        //Make a copy
+        board = this.cloneBoard(board_);
+        pieces = this.clonePieces(pieces_);
+
+        //Check if the board is empty
+        if (board.length == 0) { //Top Left
+            //Start the board with all pieces and all position possibles
+            for (let i = 0; i < pieces.length; i++) {
+                let piecesCopy = this.clonePieces(pieces);
+                let piece = this.getPiece(piecesCopy, i);
+
+                for (let j = 0; j < 4; j++) {
+                    piece.turn();
+                    this.match([piece], piecesCopy)
+                }
             }
+        } else if (board.length == 1 || board.length == 2 || board.length == 6) { //Top Center and Top Right
+            for (let p = 0; p < pieces.length; p++) {
+                let piece = pieces[p];
 
-            //Piece 1
-            if (!this.board[1]) {
-                this.board[1] = this.getFirst();
+                for (let j = 0; j < 4; j++) {
+                    piece.turn();
+
+                    if (board[(board.length - 1)].matchRight(piece)) {
+                        let piecesCopy = this.clonePieces(pieces);
+                        board[board.length] = this.getPiece(piecesCopy, p);
+
+                        this.match(board, piecesCopy);
+                    }
+                }
             }
+        } else if (board.length == 3 || board.length == 4 || board.length == 5 || board.length == 7) { //Center Left and Center Right
+            let compareTo;
+            if (board.length == 3)
+                compareTo = 0;
+            else if (board.length == 4)
+                compareTo = 2;
+            else if (board.length == 5)
+                compareTo = 3;
+            else compareTo = 4
 
-            //Piece 2
-            if (!this.board[2]) {
-                let currentSize = this.pieces.length;
-                for (let i = 0; i < currentSize; i++) {
-                    let p = this.getFirst();
-                    let match = false;
-                    for (let j = 0; j < 4; j++) {
-                        if (this.board[1].matchRight(p)) {
-                            this.board[2] = p;
-                            match = true;
-                            break;
+
+            for (let p = 0; p < pieces.length; p++) {
+                let piece = pieces[p];
+
+                for (let j = 0; j < 4; j++) {
+                    piece.turn();
+                    if (board.length != 7) {
+                        if (board[compareTo].matchBottom(piece)) {
+                            let piecesCopy = this.clonePieces(pieces);
+                            board[board.length] = this.getPiece(piecesCopy, p);
+
+                            this.match(board, piecesCopy);
                         }
-                        p.turn();
-                    }
+                    } else if (board[compareTo].matchBottom(piece) && board[(board.length - 1)].matchRight(piece)) {
+                        let piecesCopy = this.clonePieces(pieces);
+                        board[board.length] = this.getPiece(piecesCopy, p);
 
-                    if (!match) {
-                        this.putToEnd(p.turn());
-                    } else {
-                        break;
+                        this.match(board, piecesCopy);
                     }
-                }
-
-                //Check is empty yet, if yes, remove last Piece
-                if (!this.board[2]) {
-                    this.clearBoard();
-                    continue;
                 }
             }
-
-            //Piece 3
-            if (!this.board[3]) {
-                currentSize = this.pieces.length;
-                for (let i = 0; i < currentSize; i++) {
-                    let p = this.getFirst();
-                    let match = false;
-                    for (let j = 0; j < 4; j++) {
-                        if (this.board[2].matchRight(p)) {
-                            this.board[3] = p;
-                            match = true;
-                            break;
-                        }
-                        p.turn();
-                    }
-
-                    if (!match) {
-                        this.putToEnd(p.turn());
-                    } else {
-                        break;
-                    }
-                }
-
-                //Check is empty yet, if yes, remove last Piece
-                if (!this.board[3]) {
-                    this.clearBoard();
-                    continue;
-                }
-            }
-
-            //Piece 4
-            if (!this.board[4]) {
-                currentSize = this.pieces.length;
-                for (let i = 0; i < currentSize; i++) {
-                    let p = this.getFirst();
-                    let match = false;
-                    for (let j = 0; j < 4; j++) {
-                        if (this.board[1].matchBottom(p)) {
-                            this.board[4] = p;
-                            match = true;
-                            break;
-                        }
-                        p.turn();
-                    }
-    
-                    if (!match) {
-                        this.putToEnd(p.turn());
-                    } else {
-                        break;
-                    }
-                }
-
-                //Check is empty yet, if yes, remove last Piece
-                if (!this.board[4]) {
-                    this.clearBoard();
-
-                    continue;
-                }
-            }
-
-            //Piece 5
-            if (!this.board[5]) {
-                currentSize = this.pieces.length;
-                for (let i = 0; i < currentSize; i++) {
-                    let p = this.getFirst();
-                    let match = false;
-                    for (let j = 0; j < 4; j++) {
-                        if (this.board[3].matchBottom(p)) {
-                            this.board[5] = p;
-                            match = true;
-                            break;
-                        }
-                        p.turn();
-                    }
-        
-                    if (!match) {
-                        this.putToEnd(p.turn());
-                    } else {
-                        break;
-                    }
-                }
-
-                //Check is empty yet, if yes, remove last Piece
-                if (!this.board[5]) {
-                    this.clearBoard();
-                    
-                    continue;
-                }
-            }
-
-            //Piece 6
-            if (!this.board[6]) {
-                currentSize = this.pieces.length;
-                for (let i = 0; i < currentSize; i++) {
-                    let p = this.getFirst();
-                    let match = false;
-                    for (let j = 0; j < 4; j++) {
-                        if (this.board[4].matchBottom(p)) {
-                            this.board[6] = p;
-                            match = true;
-                            break;
-                        }
-                        p.turn();
-                    }
-
-                    if (!match) {
-                        this.putToEnd(p.turn());
-                    } else {
-                        break;
-                    }
-                }
-
-                //Check is empty yet, if yes, remove last Piece
-                if (!this.board[6]) {
-                    this.clearBoard();
-
-                    continue;
-                }
-            }
-
-            //Piece 7
-            if (!this.board[7]) {
-                currentSize = this.pieces.length;
-                for (let i = 0; i < currentSize; i++) {
-                    let p = this.getFirst();
-                    let match = false;
-                    for (let j = 0; j < 4; j++) {
-                        if (this.board[6].matchRight(p)) {
-                            this.board[7] = p;
-                            match = true;
-                            break;
-                        }
-                        p.turn();
-                    }
-
-                    if (!match) {
-                        this.putToEnd(p.turn());
-                    } else {
-                        break;
-                    }
-                }
-
-                //Check is empty yet, if yes, remove last Piece
-                if (!this.board[7]) {
-                    this.clearBoard();
-
-                    continue;
-                }
-            }
-
-             //Piece 8
-             if (!this.board[8]) {
-                currentSize = this.pieces.length;
-                for (let i = 0; i < currentSize; i++) {
-                    let p = this.getFirst();
-                    let match = false;
-                    for (let j = 0; j < 4; j++) {
-                        if (this.board[7].matchRight(p) && this.board[5].matchBottom(p)) {
-                            this.board[8] = p;
-                            match = true;
-                            break;
-                        }
-                        p.turn();
-                    }
-
-                    if (!match) {
-                        this.putToEnd(p.turn());
-                    } else {
-                        break;
-                    }
-                }
-
-                //Check is empty yet, if yes, remove last Piece
-                if (!this.board[8]) {
-                    this.clearBoard();
-
-                    continue;
-                }
-            }
-
-            //end while
         }
+
+        if (board.length == 8) {
+            if (!this.solutions.includes(board)) {
+                this.solutions.push(board);
+                console.log('Solution:' + this.solutions.length + ' of ' + this.combinations + ' combinations');
+                this.printBoard(board);
+                console.log('-------------------------------');
+            }
+        }
+    }
+
+    this.solveIt = function () {
+        this.combinations = 0;
+        this.solutions = [];
+        this.match([], this.getPieces());
     }
 }
 
 let pieceManager = new PieceManager();
-pieceManager.solve(true);
-pieceManager.printBoard();
+pieceManager.solveIt();
